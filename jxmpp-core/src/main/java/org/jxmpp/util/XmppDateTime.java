@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -57,11 +58,12 @@ public class XmppDateTime {
 			.compile("^\\d+(-\\d+){2}+T(\\d+:){2}\\d+(Z|([+-](\\d+:\\d+)))$");
 
 	private static final TimeZone TIME_ZONE_UTC = TimeZone.getTimeZone("UTC");
+	private static final Locale LOCALE_EN = Locale.ENGLISH;
 
 	private static final ThreadLocal<DateFormat> xep0091Formatter = new ThreadLocal<DateFormat>() {
 		@Override
 		protected DateFormat initialValue() {
-			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd'T'HH:mm:ss");
+			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd'T'HH:mm:ss", LOCALE_EN);
 			dateFormat.setTimeZone(TIME_ZONE_UTC);
 			return dateFormat;
 		}
@@ -69,7 +71,7 @@ public class XmppDateTime {
 	private static final ThreadLocal<DateFormat> xep0091Date6DigitFormatter = new ThreadLocal<DateFormat>() {
 		@Override
 		protected DateFormat initialValue() {
-			DateFormat dateFormat = new SimpleDateFormat("yyyyMd'T'HH:mm:ss");
+			DateFormat dateFormat = new SimpleDateFormat("yyyyMd'T'HH:mm:ss", LOCALE_EN);
 			dateFormat.setTimeZone(TIME_ZONE_UTC);
 			return dateFormat;
 		}
@@ -77,7 +79,7 @@ public class XmppDateTime {
 	private static final ThreadLocal<DateFormat> xep0091Date7Digit1MonthFormatter = new ThreadLocal<DateFormat>() {
 		@Override
 		protected DateFormat initialValue() {
-			DateFormat dateFormat = new SimpleDateFormat("yyyyMdd'T'HH:mm:ss");
+			DateFormat dateFormat = new SimpleDateFormat("yyyyMdd'T'HH:mm:ss", LOCALE_EN);
 			dateFormat.setTimeZone(TIME_ZONE_UTC);
 			dateFormat.setLenient(false);
 			return dateFormat;
@@ -86,7 +88,7 @@ public class XmppDateTime {
 	private static final ThreadLocal<DateFormat> xep0091Date7Digit2MonthFormatter = new ThreadLocal<DateFormat>() {
 		@Override
 		protected DateFormat initialValue() {
-			DateFormat dateFormat = new SimpleDateFormat("yyyyMMd'T'HH:mm:ss");
+			DateFormat dateFormat = new SimpleDateFormat("yyyyMMd'T'HH:mm:ss", LOCALE_EN);
 			dateFormat.setTimeZone(TIME_ZONE_UTC);
 			dateFormat.setLenient(false);
 			return dateFormat;
@@ -125,7 +127,7 @@ public class XmppDateTime {
 			FORMATTER = new ThreadLocal<DateFormat>() {
 				@Override
 				protected DateFormat initialValue() {
-					DateFormat dateFormat = new SimpleDateFormat(FORMAT_STRING);
+					DateFormat dateFormat = new SimpleDateFormat(FORMAT_STRING, LOCALE_EN);
 					dateFormat.setTimeZone(TIME_ZONE_UTC);
 					return dateFormat;
 				}
